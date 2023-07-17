@@ -4,7 +4,7 @@ import React from "react"
 import clsx from "clsx"
 
 interface SidebarItemProps {
-  key?: string
+  itemKey?: string | undefined
   href?: string
   className?: string
   displayName: string
@@ -12,14 +12,13 @@ interface SidebarItemProps {
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
-  key,
   href,
   className,
   displayName,
   icon,
 }) => {
   return (
-    <div key={key} className="w-full">
+    <div className="w-full">
       <Button
         href={href}
         startIcon={icon}

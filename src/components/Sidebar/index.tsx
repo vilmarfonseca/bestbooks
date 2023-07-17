@@ -1,4 +1,5 @@
 import { Fade, IconButton, Slide } from "@mui/material"
+import useDeviceType from "@/hooks/useDeviceType"
 import { useState } from "react"
 
 import clsx from "clsx"
@@ -15,6 +16,7 @@ import SidebarItem from "./SidebarItem"
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true)
+  const { isMobile } = useDeviceType()
 
   const sidebarItems = {
     explore: [
@@ -49,7 +51,7 @@ export default function Sidebar() {
       <IconButton
         className={clsx(
           open ? "flex" : "hidden",
-          "absolute bg-primary border-solid z-40 translate-x-[195px] translate-y-6 border border-secondary border-opacity-25",
+          "fixed bg-primary border-solid z-40 translate-x-[230px] translate-y-6 border border-secondary border-opacity-25",
         )}
         disableTouchRipple
         onClick={() => setOpen(!open)}
@@ -62,8 +64,8 @@ export default function Sidebar() {
         direction="right"
         id="mainSidebar"
         className={clsx(
-          !open ? "absolute" : "relative",
-          "flex flex-col w-[250px] p-5 h-[100vh] border-r border-secondary border-opacity-25 justify-between",
+          !open ? "absolute" : "",
+          "flex flex-col w-[250px] p-5 h-[100vh] fixed justify-between bg-primary border-r border-secondary border-opacity-25",
         )}
       >
         <div>
@@ -82,10 +84,13 @@ export default function Sidebar() {
                 Explore
               </span>
               {sidebarItems.explore.map((item, idx) => (
-                <Fade in timeout={{ enter: 300 * (idx + 1) }}>
+                <Fade
+                  in
+                  key={`sidebar-explore-item-${idx}`}
+                  timeout={{ enter: 300 * (idx + 1) }}
+                >
                   <div>
                     <SidebarItem
-                      key={`sidebar-menu-item${idx}`}
                       href={item.href}
                       icon={item.icon}
                       displayName={item.displayName}
@@ -100,12 +105,19 @@ export default function Sidebar() {
                 By Date
               </span>
               {sidebarItems.byDate.map((item, idx) => (
-                <SidebarItem
-                  key={`sidebar-menu-item${idx}`}
-                  href={item.href}
-                  icon={item.icon}
-                  displayName={item.displayName}
-                />
+                <Fade
+                  in
+                  key={`sidebar-date-item-${idx}`}
+                  timeout={{ enter: 400 * (idx + 1) }}
+                >
+                  <div>
+                    <SidebarItem
+                      href={item.href}
+                      icon={item.icon}
+                      displayName={item.displayName}
+                    />
+                  </div>
+                </Fade>
               ))}
             </div>
 
@@ -114,12 +126,19 @@ export default function Sidebar() {
                 By Category
               </span>
               {sidebarItems.byCategory.map((item, idx) => (
-                <SidebarItem
-                  key={`sidebar-menu-item${idx}`}
-                  href={item.href}
-                  icon={item.icon}
-                  displayName={item.displayName}
-                />
+                <Fade
+                  in
+                  key={`sidebar-category-item-${idx}`}
+                  timeout={{ enter: 500 * (idx + 1) }}
+                >
+                  <div>
+                    <SidebarItem
+                      href={item.href}
+                      icon={item.icon}
+                      displayName={item.displayName}
+                    />
+                  </div>
+                </Fade>
               ))}
             </div>
           </div>

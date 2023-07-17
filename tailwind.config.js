@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const defaultTheme = require("tailwindcss/defaultTheme");
+const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   // corePlugins: {
@@ -10,12 +10,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
-  important: '#root',
+  important: "#root",
   theme: {
     container: {
       padding: {
-        DEFAULT: '25px',
-        lg: '50px',
+        DEFAULT: "5px",
+        lg: "25px",
       },
     },
     extend: {
@@ -29,4 +29,4 @@ module.exports = {
       },
     },
   },
-};
+}
