@@ -1,11 +1,16 @@
-import { StyledEngineProvider } from "@mui/material";
+import Router from "@/pages/router"
+import { StyledEngineProvider } from "@mui/material"
+import React from "react"
+import { BrowserRouter } from "react-router-dom"
 
-function App() {
+const App: React.FC = () => {
   return (
     <StyledEngineProvider>
-      <div>Hello World</div>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </StyledEngineProvider>
-  );
+  )
 }
 
-export default App;
+export default App
