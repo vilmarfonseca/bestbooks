@@ -20,15 +20,14 @@ const Book = ({
   }
 
   return (
-    <a
-      href={href}
-      className="w-full h-full relative hover:scale-110 transition-all duration-200 ease-in-out lg:max-w-[100px] xl:max-w-[125px]"
-    >
-      <BookRankBadge />
-      <Card className="shadow-2xl">
-        <img loading="lazy" src={imgSrc} alt="" />
-      </Card>
-    </a>
+    <div className="hover:scale-110 transition-all duration-200 ease-in-out shadow-card xl:max-w-[275px]">
+      <a href={href} className="w-full h-full relative">
+        <BookRankBadge />
+        <Card>
+          <img loading="lazy" src={imgSrc} alt="" />
+        </Card>
+      </a>
+    </div>
   )
 }
 

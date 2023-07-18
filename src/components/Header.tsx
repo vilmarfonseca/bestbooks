@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   return (
     <div
       className={
-        "max-w-[1800px] w-full h-20 flex items-center justify-between border-b border-secondary border-opacity-25 mb-10"
+        "max-w-[1800px] w-full h-20 flex items-center justify-between border-b border-secondary border-opacity-25"
       }
     >
       <div className="flex items-center">

@@ -4,6 +4,7 @@ import Sidebar from "@/components/Sidebar"
 import Header from "@/components/Header"
 import clsx from "clsx"
 import useDeviceType from "@/hooks/useDeviceType"
+import Footer from "@/components/Footer"
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { isDesktop } = useDeviceType()
@@ -14,9 +15,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Sidebar />
       </div>
 
-      <div className="flex flex-col items-center w-full px-[25px] lg:px-[50px]">
+      <div
+        className={clsx(
+          isDesktop ? "w-[calc(100vw-250px)]" : "w-full",
+          "flex flex-col items-center px-[25px] lg:px-[50px]",
+        )}
+      >
         <Header />
-        <main className="container">{children}</main>
+        <main className="max-w-[1800px] mt-5 mb-10 lg:mt-10 lg:mb-20">
+          {children}
+        </main>
+        <Footer />
       </div>
     </div>
   )

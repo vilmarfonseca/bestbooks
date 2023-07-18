@@ -10,14 +10,14 @@ const CategorizedRowItem = ({
   itemsPerRow: number
 }) => {
   return (
-    <div className="flex px-2 py-5 gap-10 w-full">
+    <div className="flex px-2 py-2 lg:py-5 gap-5 lg:gap-10 w-full">
       {items
         .map((item, idx) => (
           <div key={`${categoryName}-book-item-${idx}`}>
             <Book href={item.href} rank={idx + 1} imgSrc="https://storage.googleapis.com/du-prd/books/images/9781538756591.jpg" />
           </div>
         ))
-        .filter((_, idx) => idx <= itemsPerRow)}
+        .filter((_, idx) => idx < itemsPerRow)}
     </div>
   )
 }

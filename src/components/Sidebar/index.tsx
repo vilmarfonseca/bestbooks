@@ -72,7 +72,7 @@ export default function Sidebar() {
         direction="right"
         id="mainSidebar"
         className={clsx(
-          !isDesktop ? "absolute" : "relative",
+          !isDesktop ? "absolute" : "fixed",
           "flex z-50 flex-col w-[250px] p-5 h-[100vh] fixed justify-between shadow-xl bg-primary border-r border-secondary border-opacity-25",
         )}
       >
@@ -90,33 +90,18 @@ export default function Sidebar() {
             </IconButton>
           )}
           <div className="flex flex-col gap-10 items-start">
-            {/* <Fade in timeout={{ enter: 500 }}>
-              <a
-                href="/"
-                className="text-black font-serif text-4xl no-underline text-center w-full"
-              >
-                BestBooks
-              </a>
-            </Fade> */}
-
             <div className="w-full mt-10">
               <span className="uppercase opacity-50 font-black text-xs tracking-[.1875rem]">
                 Explore
               </span>
               {sidebarItems.explore.map((item, idx) => (
-                <Fade
-                  in
-                  key={`sidebar-explore-item-${idx}`}
-                  timeout={{ enter: 300 * (idx + 1) }}
-                >
-                  <div>
-                    <SidebarItem
-                      href={item.href}
-                      icon={item.icon}
-                      displayName={item.displayName}
-                    />
-                  </div>
-                </Fade>
+                <div key={`sidebar-explore-item-${idx}`}>
+                  <SidebarItem
+                    href={item.href}
+                    icon={item.icon}
+                    displayName={item.displayName}
+                  />
+                </div>
               ))}
             </div>
 
@@ -125,19 +110,13 @@ export default function Sidebar() {
                 By Date
               </span>
               {sidebarItems.byDate.map((item, idx) => (
-                <Fade
-                  in
-                  key={`sidebar-date-item-${idx}`}
-                  timeout={{ enter: 400 * (idx + 1) }}
-                >
-                  <div>
-                    <SidebarItem
-                      href={item.href}
-                      icon={item.icon}
-                      displayName={item.displayName}
-                    />
-                  </div>
-                </Fade>
+                <div key={`sidebar-date-item-${idx}`}>
+                  <SidebarItem
+                    href={item.href}
+                    icon={item.icon}
+                    displayName={item.displayName}
+                  />
+                </div>
               ))}
             </div>
 
@@ -146,19 +125,13 @@ export default function Sidebar() {
                 By Category
               </span>
               {sidebarItems.byCategory.map((item, idx) => (
-                <Fade
-                  in
-                  key={`sidebar-category-item-${idx}`}
-                  timeout={{ enter: 500 * (idx + 1) }}
-                >
-                  <div>
-                    <SidebarItem
-                      href={item.href}
-                      icon={item.icon}
-                      displayName={item.displayName}
-                    />
-                  </div>
-                </Fade>
+                <div key={`sidebar-category-item-${idx}`}>
+                  <SidebarItem
+                    href={item.href}
+                    icon={item.icon}
+                    displayName={item.displayName}
+                  />
+                </div>
               ))}
             </div>
           </div>
