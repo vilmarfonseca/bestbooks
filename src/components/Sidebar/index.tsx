@@ -1,5 +1,4 @@
 import { Fade, IconButton, Slide } from "@mui/material"
-import useDeviceType from "@/hooks/useDeviceType"
 import { useState } from "react"
 
 import clsx from "clsx"
@@ -16,7 +15,6 @@ import SidebarItem from "./SidebarItem"
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true)
-  const { isMobile } = useDeviceType()
 
   const sidebarItems = {
     explore: [
