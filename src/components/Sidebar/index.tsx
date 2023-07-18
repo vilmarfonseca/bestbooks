@@ -1,20 +1,23 @@
 import { Fade, IconButton, Slide } from "@mui/material"
-import { useState } from "react"
+import { useContext, useEffect } from "react"
 
+import { GlobalStateContext } from "@/context/GlobalStateContext"
 import clsx from "clsx"
 import {
   MdCalendarViewMonth,
   MdCalendarViewWeek,
-  MdOutlineChevronRight,
+  MdClose,
   MdOutlineHome,
   MdOutlineLayers,
   MdOutlineLogin,
   MdOutlineShuffle,
 } from "react-icons/md"
 import SidebarItem from "./SidebarItem"
+import useDeviceType from "@/hooks/useDeviceType"
 
 export default function Sidebar() {
-  const [open, setOpen] = useState(true)
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
+  const { isDesktop } = useDeviceType()
 
   const sidebarItems = {
     explore: [
@@ -44,40 +47,59 @@ export default function Sidebar() {
     ],
   }
 
+  useEffect(() => {
+    if (isDesktop) {
+      setIsSidebarOpen(true)
+    } else {
+      setIsSidebarOpen(false)
+    }
+  }, [isDesktop, setIsSidebarOpen])
+
   return (
     <>
-      <IconButton
-        className={clsx(
-          open ? "flex" : "hidden",
-          "fixed bg-primary border-solid z-40 translate-x-[230px] translate-y-6 border border-secondary border-opacity-25",
-        )}
-        disableTouchRipple
-        onClick={() => setOpen(!open)}
-      >
-        <MdOutlineChevronRight className="h-5 w-5" />
-      </IconButton>
+      {!isDesktop && (
+        <Fade in={isSidebarOpen}>
+          <div
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="bg-black absolute w-[100vw] h-[100vh] z-50 bg-opacity-40"
+          ></div>
+        </Fade>
+      )}
+
       <Slide
-        in={open}
+        in={isSidebarOpen}
         appear={false}
         direction="right"
         id="mainSidebar"
         className={clsx(
-          !open ? "absolute" : "",
-          "flex flex-col w-[250px] p-5 h-[100vh] fixed justify-between bg-primary border-r border-secondary border-opacity-25",
+          !isDesktop ? "absolute" : "relative",
+          "flex z-50 flex-col w-[250px] p-5 h-[100vh] fixed justify-between shadow-xl bg-primary border-r border-secondary border-opacity-25",
         )}
       >
         <div>
+          {!isDesktop && (
+            <IconButton
+              className={clsx(
+                isSidebarOpen ? "flex" : "hidden",
+                "fixed bg-primary border-solid z-[60] translate-x-[210px] translate-y-6 border border-secondary border-opacity-25",
+              )}
+              disableTouchRipple
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+              <MdClose className="h-5 w-5" />
+            </IconButton>
+          )}
           <div className="flex flex-col gap-10 items-start">
-            <Fade in timeout={{ enter: 500 }}>
+            {/* <Fade in timeout={{ enter: 500 }}>
               <a
                 href="/"
                 className="text-black font-serif text-4xl no-underline text-center w-full"
               >
                 BestBooks
               </a>
-            </Fade>
+            </Fade> */}
 
-            <div className="w-full">
+            <div className="w-full mt-10">
               <span className="uppercase opacity-50 font-black text-xs tracking-[.1875rem]">
                 Explore
               </span>

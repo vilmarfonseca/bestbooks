@@ -22,6 +22,7 @@ module.exports = {
       colors: {
         primary: "#FAF3E4",
         secondary: "#4A6A71",
+        cta: "#A75B35",
       },
       fontFamily: {
         sans: ["Lato", ...defaultTheme.fontFamily.sans],

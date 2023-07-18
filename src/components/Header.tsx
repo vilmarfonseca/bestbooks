@@ -1,18 +1,44 @@
-import { IconButton } from "@mui/material"
-import React from "react"
-import { MdOutlineMenu, MdOutlineAccountCircle } from "react-icons/md"
+import { GlobalStateContext } from "@/context/GlobalStateContext"
+import useDeviceType from "@/hooks/useDeviceType"
+import { Fade, IconButton } from "@mui/material"
+import React, { useContext } from "react"
+import { MdOutlineAccountCircle, MdOutlineMenu } from "react-icons/md"
 
 const Header: React.FC = () => {
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
+  const { isDesktop } = useDeviceType()
+
   return (
-    <div className="container w-full h-20 flex items-center justify-between">
-      <div>
-        <IconButton disableFocusRipple disableTouchRipple>
-          <MdOutlineMenu className="h-6 w-6" />
-        </IconButton>
+    <div
+      className={
+        "max-w-[1800px] w-full h-20 flex items-center justify-between border-b border-secondary border-opacity-25 mb-10"
+      }
+    >
+      <div className="flex items-center">
+        {!isDesktop && (
+          <div>
+            <IconButton
+              disableFocusRipple
+              disableTouchRipple
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            >
+              <MdOutlineMenu className="h-6 w-6" />
+            </IconButton>
+          </div>
+        )}
+
+        <Fade in timeout={{ enter: 500 }}>
+          <a
+            href="/"
+            className="text-black font-serif text-2xl lg:text-4xl no-underline text-center w-full"
+          >
+            BestBooks
+          </a>
+        </Fade>
       </div>
       <div className="flex items-center gap-4">
-        <span>placeholder@email.com</span>
-        <MdOutlineAccountCircle className="w-10 h-10"/>
+        <span className="hidden lg:flex">placeholder@email.com</span>
+        <MdOutlineAccountCircle className="w-8 h-8 lg:w-10 lg:h-10" />
       </div>
     </div>
   )
