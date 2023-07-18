@@ -1,55 +1,34 @@
 import Layout from "@/components/Layout"
 import CategorizedRowsView from "@/components/Views/CategorizedRow"
 import useDeviceType from "@/hooks/useDeviceType"
+import { fetchAllLists } from "@/lib/api"
 import { PageProps } from "@/types/pages.types"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 const HomePage: React.FC<PageProps> = ({ title }) => {
+  const [data, setData] = useState([])
   const { isMobile } = useDeviceType()
 
   useEffect(() => {
     document.title = title
   }, [title])
 
-  const data = [
-    {
-      categoryDisplayName: "Category Title 1",
-      categoryName: "category",
-      items: [
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-      ],
-    },
-    {
-      categoryDisplayName: "Category Title 2",
-      categoryName: "category2",
-      items: [
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-        { image: "", href: "" },
-      ],
-    },
-  ]
+  useEffect(() => {
+    async function getHomePageData() {
+      const listsData = await fetchAllLists()
 
+      if(listsData?.results?.lists.length > 0) {
+        setData(listsData.results.lists)
+      }
+    }
+
+    getHomePageData()
+  }, [])
+  
   return (
     <Layout>
-      <div className="py-5">
-        <div className="flex flex-col gap-4 md:gap-8 lg:gap-10">
+      <div className="py-5 w-full">
+        <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 w-full">
           <CategorizedRowsView data={data} itemsPerRow={isMobile ? 3 : 5} />
         </div>
       </div>

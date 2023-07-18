@@ -1,4 +1,3 @@
-import { Card } from "@mui/material"
 import { MdBookmark } from "react-icons/md"
 
 const Book = ({
@@ -20,12 +19,10 @@ const Book = ({
   }
 
   return (
-    <div className="hover:scale-110 transition-all duration-200 ease-in-out shadow-card xl:max-w-[275px]">
+    <div className="hover:scale-110 transition-all duration-200 ease-in-out shadow-card h-full">
       <a href={href} className="w-full h-full relative">
         <BookRankBadge />
-        <Card>
-          <img loading="lazy" src={imgSrc} alt="" />
-        </Card>
+          <img loading="lazy" src={imgSrc} alt="" className="object-cover h-full w-[275px]" />
       </a>
     </div>
   )

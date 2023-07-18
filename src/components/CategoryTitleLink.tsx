@@ -7,7 +7,7 @@ const CategoryTitleLink = ({ title, href }: { title: string; href?: string }) =>
     className="flex justify-start gap-2 lg:gap-4 hover:bg-primary max-w-fit"
     disableRipple
   >
-    <h2 className="text-2xl lg:text-4xl font-serif text-black normal-case">{title}</h2>
+    <h2 className="text-2xl lg:text-4xl font-serif text-black normal-case text-left">{title}</h2>
     <MdOutlineChevronRight className="h-5 w-5 text-black" />
   </Button>
 )

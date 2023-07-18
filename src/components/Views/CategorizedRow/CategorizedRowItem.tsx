@@ -14,7 +14,7 @@ const CategorizedRowItem = ({
       {items
         .map((item, idx) => (
           <div key={`${categoryName}-book-item-${idx}`}>
-            <Book href={item.href} rank={idx + 1} imgSrc="https://storage.googleapis.com/du-prd/books/images/9781538756591.jpg" />
+            <Book href={item.href} rank={item.rank} imgSrc={item.book_image} />
           </div>
         ))
         .filter((_, idx) => idx < itemsPerRow)}
