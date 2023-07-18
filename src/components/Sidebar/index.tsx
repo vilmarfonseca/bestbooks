@@ -2,6 +2,7 @@ import { Fade, IconButton, Slide } from "@mui/material"
 import { useContext, useEffect } from "react"
 
 import { GlobalStateContext } from "@/context/GlobalStateContext"
+import useDeviceType from "@/hooks/useDeviceType"
 import clsx from "clsx"
 import {
   MdCalendarViewMonth,
@@ -9,11 +10,9 @@ import {
   MdClose,
   MdOutlineHome,
   MdOutlineLayers,
-  MdOutlineLogin,
-  MdOutlineShuffle,
+  MdOutlineLogin
 } from "react-icons/md"
 import SidebarItem from "./SidebarItem"
-import useDeviceType from "@/hooks/useDeviceType"
 
 export default function Sidebar() {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
@@ -22,11 +21,6 @@ export default function Sidebar() {
   const sidebarItems = {
     explore: [
       { displayName: "Top Books", icon: <MdOutlineHome />, href: "/" },
-      {
-        displayName: "Random Book",
-        icon: <MdOutlineShuffle />,
-        href: "/random",
-      },
     ],
     byDate: [
       { displayName: "Weekly Lists", icon: <MdCalendarViewWeek />, href: "/weekly" },

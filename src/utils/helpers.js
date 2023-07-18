@@ -4,3 +4,7 @@ export function hoursDiff(dt2, dt1) {
   diff /= 60 * 60
   return Math.abs(Math.round(diff))
 }
+
+export function capitalizeSentence(string) {
+  return string.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+}

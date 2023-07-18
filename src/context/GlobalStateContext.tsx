@@ -20,6 +20,14 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   const [loading, setLoading] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const [fullListsData, setFullListsData] = useLocalStorage("listsData", null as any)
+  const [selectedBook, setSelectedBook] = useLocalStorage(
+    "selectedBook",
+    null as any,
+  )
+  const [selectedCategory, setSelectedCategory] = useLocalStorage(
+    "selectedCategory",
+    null as any,
+  )
 
   useEffect(() => {
     async function getHomePageData() {
@@ -30,10 +38,13 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
       }
     }
 
-    if (!fullListsData || hoursDiff(new Date(fullListsData?.requestDate), new Date()) > 1) {
+    if (
+      !fullListsData ||
+      hoursDiff(new Date(fullListsData?.requestDate), new Date()) >
+        parseInt(process.env.REACT_APP_NY_API_CACHE_TTL as string)
+    ) {
       getHomePageData()
     }
-    
   })
 
   if (loading) {
@@ -50,6 +61,10 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     isSidebarOpen,
     setIsSidebarOpen,
     fullListsData,
+    selectedBook,
+    setSelectedBook,
+    selectedCategory,
+    setSelectedCategory
   }
   return (
     <GlobalStateContext.Provider value={value as any}>

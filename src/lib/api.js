@@ -1,7 +1,7 @@
 export const fetchAllLists = async () => {
   try {
     const response = await fetch(
-      `https://api.nytimes.com/svc/books/v3/lists/full-overview.json?api-key=${process.env.REACT_APP_NY_API_KEY}`,
+      `${process.env.REACT_APP_NY_API_BASE_URL}/lists/full-overview.json?api-key=${process.env.REACT_APP_NY_API_KEY}`,
     )
     if (!response.ok) {
       throw new Error("Failed to fetch data from the API")

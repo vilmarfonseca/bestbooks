@@ -19,6 +19,7 @@ const CategorizedRowsView = ({
           <div key={`${item.categoryName}-data-row-${idx}`}>
             <CategoryTitleLink title={item.display_name} />
             <CategorizedRowItem
+              listData={item}
               categoryName={item.display_name}
               items={item.books}
               itemsPerRow={itemsPerRow}

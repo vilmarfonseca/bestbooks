@@ -4,7 +4,6 @@ import { routerType } from "../types/router.types";
 const HomePage = React.lazy(() => import("@/pages/home"))
 const LoginPage = React.lazy(() => import("@/pages/login"))
 const RegisterPage = React.lazy(() => import("@/pages/register"))
-const RandomPage = React.lazy(() => import("@/pages/random"))
 const CategoryPage = React.lazy(() => import("@/pages/category"))
 const SingleBookPage = React.lazy(() => import("@/pages/book"))
 
@@ -23,10 +22,6 @@ const pagesData: routerType[] = [
   {
     path: "/register",
     element: <RegisterPage title={`${pageTitlePrefix} Register`}/>,
-  },
-  {
-    path: "/random",
-    element: <RandomPage title={`${pageTitlePrefix} Random Book`}/>,
   },
   {
     path: "/category",
