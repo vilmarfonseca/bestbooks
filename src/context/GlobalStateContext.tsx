@@ -1,7 +1,10 @@
+import { fetchAllLists } from "@/lib/api"
+import { hoursDiff } from "@/utils/helpers"
 import { CircularProgress } from "@mui/material"
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
+import { useLocalStorage } from "usehooks-ts"
 
-export const GlobalStateContext = React.createContext<any>({});
+export const GlobalStateContext = React.createContext<any>({})
 
 export function useGlobalState() {
   return useContext(GlobalStateContext)
@@ -16,6 +19,22 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 }) => {
   const [loading, setLoading] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [fullListsData, setFullListsData] = useLocalStorage("listsData", null as any)
+
+  useEffect(() => {
+    async function getHomePageData() {
+      const listsData = await fetchAllLists()
+
+      if (listsData?.status === "OK") {
+        setFullListsData({ ...listsData, ...{ requestDate: new Date() } })
+      }
+    }
+
+    if (!fullListsData || hoursDiff(new Date(fullListsData?.requestDate), new Date()) > 1) {
+      getHomePageData()
+    }
+    
+  })
 
   if (loading) {
     return (
@@ -30,6 +49,7 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     setLoading,
     isSidebarOpen,
     setIsSidebarOpen,
+    fullListsData,
   }
   return (
     <GlobalStateContext.Provider value={value as any}>

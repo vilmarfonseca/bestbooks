@@ -1,12 +1,13 @@
 import Layout from "@/components/Layout"
 import CategorizedRowsView from "@/components/Views/CategorizedRow"
+import { GlobalStateContext } from "@/context/GlobalStateContext"
 import useDeviceType from "@/hooks/useDeviceType"
-import { fetchAllLists } from "@/lib/api"
 import { PageProps } from "@/types/pages.types"
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 
 const HomePage: React.FC<PageProps> = ({ title }) => {
   const [data, setData] = useState([])
+  const { fullListsData } = useContext(GlobalStateContext)
   const { isMobile } = useDeviceType()
 
   useEffect(() => {
@@ -14,17 +15,11 @@ const HomePage: React.FC<PageProps> = ({ title }) => {
   }, [title])
 
   useEffect(() => {
-    async function getHomePageData() {
-      const listsData = await fetchAllLists()
-
-      if(listsData?.results?.lists.length > 0) {
-        setData(listsData.results.lists)
-      }
+    if (fullListsData?.results?.lists) {
+      setData(fullListsData.results.lists)
     }
+  }, [fullListsData])
 
-    getHomePageData()
-  }, [])
-  
   return (
     <Layout>
       <div className="py-5 w-full">
