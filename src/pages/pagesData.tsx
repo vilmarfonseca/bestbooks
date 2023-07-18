@@ -5,7 +5,9 @@ const HomePage = React.lazy(() => import("@/pages/home"))
 const LoginPage = React.lazy(() => import("@/pages/login"))
 const RegisterPage = React.lazy(() => import("@/pages/register"))
 const RandomPage = React.lazy(() => import("@/pages/random"))
-const CategoryPage = React.lazy(() => import("@/pages/categroy"))
+const CategoryPage = React.lazy(() => import("@/pages/category"))
+const SingleBookPage = React.lazy(() => import("@/pages/book"))
+
 
 const pageTitlePrefix = "BestBooks |"
 
@@ -29,6 +31,10 @@ const pagesData: routerType[] = [
   {
     path: "/category",
     element: <CategoryPage title={`${pageTitlePrefix} Random Book`}/>,
+  },
+  {
+    path: "/book",
+    element: <SingleBookPage title={`${pageTitlePrefix} Book`}/>,
   },
 ];
 
