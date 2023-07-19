@@ -6,13 +6,14 @@ import { PageProps } from "@/types/pages.types"
 import { capitalizeSentence } from "@/utils/helpers"
 import { Fade } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const CategoryListsPage: React.FC<PageProps> = ({ title }) => {
   const { queryCategory } = useParams()
   const [data, setData] = useState([] as any)
   const { fullListsData } = useContext(GlobalStateContext)
   const { isMobile } = useDeviceType()
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = `${title} ${capitalizeSentence(queryCategory)} Lists`
@@ -43,9 +44,11 @@ const CategoryListsPage: React.FC<PageProps> = ({ title }) => {
 
       if (filteredList?.length > 0) {
         setData(filteredList)
+      } else {
+        navigate("/404", { replace: true })
       }
     }
-  }, [fullListsData, queryCategory])
+  }, [fullListsData, navigate, queryCategory])
 
   return (
     <Layout>

@@ -6,13 +6,14 @@ import { PageProps } from "@/types/pages.types"
 import { capitalizeSentence } from "@/utils/helpers"
 import { Fade } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 const DateListsPage: React.FC<PageProps> = ({ title, params }) => {
   const { dateRange } = useParams()
   const { isMobile } = useDeviceType()
   const { fullListsData } = useContext(GlobalStateContext)
   const [data, setData] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = title + capitalizeSentence(dateRange) + " Lists"
@@ -22,14 +23,18 @@ const DateListsPage: React.FC<PageProps> = ({ title, params }) => {
     const lists = fullListsData?.results?.lists
 
     if (lists?.length > 0) {
-      setData(
-        lists.filter(
-          (list: { updated: string }) =>
-            list.updated === dateRange?.toLocaleUpperCase(),
-        ),
+      const filteredList = lists.filter(
+        (list: { updated: string }) =>
+          list.updated === dateRange?.toLocaleUpperCase(),
       )
+
+      if (filteredList.length > 0) {
+        setData(filteredList)
+      } else {
+        navigate("/404", { replace: true })
+      }
     }
-  }, [dateRange, fullListsData])
+  }, [dateRange, fullListsData, navigate])
 
   return (
     <Layout>

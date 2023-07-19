@@ -3,7 +3,7 @@ import { hoursDiff } from "@/utils/helpers"
 import { CircularProgress } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export const GlobalStateContext = React.createContext<any>({})
 
@@ -31,6 +31,7 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     null as any,
   )
 
+  const navigate = useNavigate()
   const location = useLocation()
   const currentPath = location.pathname
 
@@ -58,7 +59,18 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
       setSelectedCategory(null)
       setBackPath("/")
     }
-  }, [currentPath, setBackPath, setSelectedBook, setSelectedCategory])
+
+    if (currentPath !== "/" && !fullListsData) {
+      navigate("/", { replace: true })
+    }
+  }, [
+    currentPath,
+    fullListsData,
+    navigate,
+    setBackPath,
+    setSelectedBook,
+    setSelectedCategory,
+  ])
 
   if (loading) {
     return (
