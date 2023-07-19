@@ -3,16 +3,23 @@ import Layout from "@/components/Layout"
 import GridListingView from "@/components/Views/GridListingView"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { PageProps } from "@/types/pages.types"
+import { capitalizeSentence } from "@/utils/helpers"
 import { Fade } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
-const HomePage: React.FC<PageProps> = ({ title }) => {
+const SingleCategoryPage: React.FC<PageProps> = ({ title }) => {
   const { selectedCategory, fullListsData } = useContext(GlobalStateContext)
+  const { searchCategory } = useParams()
   const [data, setData] = useState([])
 
   useEffect(() => {
-    document.title = title + selectedCategory.display_name
-  }, [selectedCategory.display_name, title])
+    document.title =
+      title +
+      (searchCategory
+        ? capitalizeSentence(searchCategory)
+        : selectedCategory.display_name)
+  }, [searchCategory, selectedCategory.display_name, title])
 
   useEffect(() => {
     const catListId = selectedCategory.list_id
@@ -44,4 +51,4 @@ const HomePage: React.FC<PageProps> = ({ title }) => {
     </Layout>
   )
 }
-export default HomePage
+export default SingleCategoryPage

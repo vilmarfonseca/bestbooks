@@ -33,13 +33,41 @@ export default function Sidebar() {
       },
     ],
     byCategory: [
-      { displayName: "Fiction", icon: <MdOutlineLayers />, href: "/fiction" },
+      {
+        displayName: "Children's",
+        icon: <MdOutlineLayers />,
+        href: "/category-lists/children",
+      },
+      {
+        displayName: "Fiction",
+        icon: <MdOutlineLayers />,
+        href: "/category-lists/fiction",
+      },
+      {
+        displayName: "Graphic Books",
+        icon: <MdOutlineLayers />,
+        href: "/category-lists/graphic-books",
+      },
+      {
+        displayName: "Mass Market",
+        icon: <MdOutlineLayers />,
+        href: "/category-lists/mass-market",
+      },
+      {
+        displayName: "Middle Grade",
+        icon: <MdOutlineLayers />,
+        href: "/category-lists/middle-grade",
+      },
       {
         displayName: "Nonfiction",
         icon: <MdOutlineLayers />,
-        href: "/nonfiction",
+        href: "/category-lists/nonfiction",
       },
-      { displayName: "Children's", icon: <MdOutlineLayers />, href: "/childrens" },
+      {
+        displayName: "Young Adult",
+        icon: <MdOutlineLayers />,
+        href: "/category-lists/young-adult",
+      },
     ],
   }
 

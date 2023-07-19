@@ -25,10 +25,10 @@ const CategoryTitleLink = ({
       onClick={() => handleSelectedCategory()}
       disableRipple
     >
-      <h2 className="text-2xl lg:text-4xl font-serif text-black normal-case text-left">
+      <h2 className="text-xl lg:text-4xl font-serif text-black normal-case text-left truncate">
         {title}
       </h2>
-      <MdOutlineChevronRight className="h-6 w-6 shadow-sm text-black border border-secondary border-opacity-50 rounded-full" />
+      <MdOutlineChevronRight className="w-5 h-5 lg:h-6 lg:w-6 shadow-sm text-black border border-secondary border-opacity-50 rounded-full" />
     </Button>
   )
 }
