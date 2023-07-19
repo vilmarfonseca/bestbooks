@@ -15,22 +15,18 @@ const HomePage: React.FC<PageProps> = ({ title }) => {
   }, [selectedCategory.display_name, title])
 
   useEffect(() => {
-    function getCategoryBooks() {
-      const catListId = selectedCategory.list_id
-      const lists = fullListsData?.results?.lists
+    const catListId = selectedCategory.list_id
+    const lists = fullListsData?.results?.lists
 
-      if (lists?.length > 0) {
-        const books = lists.find(
-          (item: { list_id: number }) => item.list_id === catListId,
-        )
+    if (lists?.length > 0) {
+      const books = lists.find(
+        (item: { list_id: number }) => item.list_id === catListId,
+      )
 
-        if (books) {
-          setData(books)
-        }
+      if (books) {
+        setData(books)
       }
     }
-
-    getCategoryBooks()
   }, [fullListsData, selectedCategory])
 
   return (
@@ -40,7 +36,7 @@ const HomePage: React.FC<PageProps> = ({ title }) => {
           <Fade in timeout={{ enter: 500 }}>
             <div className="flex flex-col gap-4">
               <BackButton />
-              <GridListingView data={data} title="Category 1" />
+              <GridListingView data={data} />
             </div>
           </Fade>
         </div>

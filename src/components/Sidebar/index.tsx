@@ -21,11 +21,15 @@ export default function Sidebar() {
   const sidebarItems = {
     explore: [{ displayName: "Top Books", icon: <MdOutlineHome />, href: "/" }],
     byDate: [
-      { displayName: "Weekly Lists", icon: <MdCalendarViewWeek />, href: "/weekly" },
+      {
+        displayName: "Weekly Lists",
+        icon: <MdCalendarViewWeek />,
+        href: "/date/weekly",
+      },
       {
         displayName: "Monthly Lists",
         icon: <MdCalendarViewMonth />,
-        href: "/monthly",
+        href: "/date/monthly",
       },
     ],
     byCategory: [
