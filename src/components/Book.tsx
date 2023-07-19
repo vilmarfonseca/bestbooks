@@ -1,28 +1,17 @@
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { useContext } from "react"
-import { MdBookmark } from "react-icons/md"
+import BookRankBadge from "@/components/BookRankBadge"
 
-const Book = ({ data, listData }: { data?: any, listData?: any }) => {
+const Book = ({ data, listData }: { data?: any; listData?: any }) => {
   const { setSelectedBook, setSelectedCategory } = useContext(GlobalStateContext)
 
   function handleSelectBook() {
     if (data) {
       setSelectedBook(data)
     }
-    if(listData){
+    if (listData) {
       setSelectedCategory(listData)
     }
-  }
-
-  function BookRankBadge() {
-    return (
-      <div className="absolute -top-2 right-0 z-40 flex justify-center items-center">
-        <span className="absolute font-sans font-bold text-primary">
-          {data.rank}
-        </span>
-        <MdBookmark className="w-10 h-10 fill-cta" />
-      </div>
-    )
   }
 
   return (
@@ -31,7 +20,7 @@ const Book = ({ data, listData }: { data?: any, listData?: any }) => {
       onClick={() => handleSelectBook()}
     >
       <a href="/book" className="w-full h-full relative">
-        <BookRankBadge />
+        <BookRankBadge rank={data.rank} />
         <img
           alt=""
           loading="lazy"

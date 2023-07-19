@@ -1,6 +1,6 @@
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import useDeviceType from "@/hooks/useDeviceType"
-import { Fade, IconButton } from "@mui/material"
+import { IconButton } from "@mui/material"
 import React, { useContext } from "react"
 import { MdOutlineAccountCircle, MdOutlineMenu } from "react-icons/md"
 
@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   return (
     <div
       className={
-        "max-w-[1800px] w-full h-20 flex items-center justify-between border-b border-secondary border-opacity-25"
+        "max-w-[1536px] w-full h-16 md:h-20 flex items-center justify-between border-b border-secondary border-opacity-25"
       }
     >
       <div className="flex items-center">
@@ -27,14 +27,12 @@ const Header: React.FC = () => {
           </div>
         )}
 
-        <Fade in timeout={{ enter: 500 }}>
-          <a
-            href="/"
-            className="text-black font-serif text-2xl lg:text-4xl no-underline text-center w-full"
-          >
-            BestBooks
-          </a>
-        </Fade>
+        <a
+          href="/"
+          className="text-black font-serif text-2xl lg:text-4xl no-underline text-center w-full"
+        >
+          BestBooks
+        </a>
       </div>
       <div className="flex items-center gap-4">
         <span className="hidden lg:flex">placeholder@email.com</span>

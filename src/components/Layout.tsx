@@ -1,10 +1,10 @@
-import React from "react"
-import { LayoutProps } from "@/types/layout.types"
-import Sidebar from "@/components/Sidebar"
-import Header from "@/components/Header"
-import clsx from "clsx"
-import useDeviceType from "@/hooks/useDeviceType"
 import Footer from "@/components/Footer"
+import Header from "@/components/Header"
+import Sidebar from "@/components/Sidebar"
+import useDeviceType from "@/hooks/useDeviceType"
+import { LayoutProps } from "@/types/layout.types"
+import clsx from "clsx"
+import React from "react"
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { isDesktop } = useDeviceType()
@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         )}
       >
         <Header />
-        <main className="max-w-[1800px] mt-5 mb-10 lg:mt-10 lg:mb-20">
+        <main className="max-w-[1440px] mt-5 mb-10 lg:mt-10 lg:mb-20">
           {children}
         </main>
         <Footer />
