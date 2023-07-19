@@ -29,7 +29,7 @@ const pagesData: routerType[] = [
   },
   {
     path: "/book",
-    element: <SingleBookPage title={`${pageTitlePrefix} Book`}/>,
+    element: <SingleBookPage title={`${pageTitlePrefix} `}/>,
   },
 ];
 

@@ -2,14 +2,20 @@ import BookDetails from "@/components/BookDetails"
 import BackButton from "@/components/Buttons/BackButton"
 import Layout from "@/components/Layout"
 import RelatedBooks from "@/components/RelatedBooks"
+import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { PageProps } from "@/types/pages.types"
+import { capitalizeSentence } from "@/utils/helpers"
 import { Divider, Fade } from "@mui/material"
-import React, { useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 
 const SingleBookPage: React.FC<PageProps> = ({ title }) => {
+  const { selectedBook } = useContext(GlobalStateContext)
+
   useEffect(() => {
-    document.title = title
-  }, [title])
+    document.title = `${title} ${capitalizeSentence(
+      selectedBook.title.toLowerCase(),
+    )} - ${selectedBook.author}`
+  }, [selectedBook.author, selectedBook.title, title])
 
   return (
     <Layout>
