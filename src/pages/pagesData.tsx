@@ -25,7 +25,7 @@ const pagesData: routerType[] = [
   },
   {
     path: "/category",
-    element: <CategoryPage title={`${pageTitlePrefix} Random Book`}/>,
+    element: <CategoryPage title={`${pageTitlePrefix} `}/>,
   },
   {
     path: "/book",

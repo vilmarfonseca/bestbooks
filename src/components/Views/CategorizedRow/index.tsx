@@ -16,8 +16,11 @@ const CategorizedRowsView = ({
     <>
       {data.length > 0 ? (
         data.map((item, idx) => (
-          <div key={`${item.categoryName}-data-row-${idx}`}>
-            <CategoryTitleLink title={item.display_name} />
+          <div
+            key={`${item.categoryName}-data-row-${idx}`}
+            className="flex flex-col gap-2"
+          >
+            <CategoryTitleLink title={item.display_name} categoryData={item} />
             <CategorizedRowItem
               listData={item}
               categoryName={item.display_name}

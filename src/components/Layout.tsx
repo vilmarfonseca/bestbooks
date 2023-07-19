@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div
         className={clsx(
           isDesktop ? "w-[calc(100vw-250px)]" : "w-full",
-          "flex flex-col items-center px-[25px] lg:px-[50px]",
+          "flex flex-col items-center px-[20px] lg:px-[50px]",
         )}
       >
         <Header />

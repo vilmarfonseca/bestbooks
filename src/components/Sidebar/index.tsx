@@ -10,7 +10,7 @@ import {
   MdClose,
   MdOutlineHome,
   MdOutlineLayers,
-  MdOutlineLogin
+  MdOutlineLogin,
 } from "react-icons/md"
 import SidebarItem from "./SidebarItem"
 
@@ -19,9 +19,7 @@ export default function Sidebar() {
   const { isDesktop } = useDeviceType()
 
   const sidebarItems = {
-    explore: [
-      { displayName: "Top Books", icon: <MdOutlineHome />, href: "/" },
-    ],
+    explore: [{ displayName: "Top Books", icon: <MdOutlineHome />, href: "/" }],
     byDate: [
       { displayName: "Weekly Lists", icon: <MdCalendarViewWeek />, href: "/weekly" },
       {
@@ -130,15 +128,11 @@ export default function Sidebar() {
             </div>
           </div>
 
-          <Fade in timeout={{ enter: 500 }}>
-            <div>
-              <SidebarItem
-                href="/login"
-                displayName="Sign In"
-                icon={<MdOutlineLogin />}
-              />
-            </div>
-          </Fade>
+          <SidebarItem
+            href="/login"
+            displayName="Sign In"
+            icon={<MdOutlineLogin />}
+          />
         </div>
       </Slide>
     </>

@@ -1,9 +1,14 @@
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { useContext } from "react"
 import BookRankBadge from "@/components/BookRankBadge"
+import { useLocation } from "react-router-dom"
 
 const Book = ({ data, listData }: { data?: any; listData?: any }) => {
-  const { setSelectedBook, setSelectedCategory } = useContext(GlobalStateContext)
+  const { setSelectedBook, setSelectedCategory, setBackPath } =
+    useContext(GlobalStateContext)
+
+  const location = useLocation()
+  const currentPath = location.pathname
 
   function handleSelectBook() {
     if (data) {
@@ -12,6 +17,7 @@ const Book = ({ data, listData }: { data?: any; listData?: any }) => {
     if (listData) {
       setSelectedCategory(listData)
     }
+    setBackPath(currentPath)
   }
 
   return (

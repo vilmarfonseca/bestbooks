@@ -3,6 +3,7 @@ import { hoursDiff } from "@/utils/helpers"
 import { CircularProgress } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"
+import { useLocation } from "react-router-dom"
 
 export const GlobalStateContext = React.createContext<any>({})
 
@@ -18,7 +19,8 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   children,
 }) => {
   const [loading, setLoading] = useState(false)
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+  const [backPath, setBackPath] = useLocalStorage("backPath", "/")
+  const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage("sidebarControl", true)
   const [fullListsData, setFullListsData] = useLocalStorage("listsData", null as any)
   const [selectedBook, setSelectedBook] = useLocalStorage(
     "selectedBook",
@@ -28,6 +30,9 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     "selectedCategory",
     null as any,
   )
+
+  const location = useLocation()
+  const currentPath = location.pathname
 
   useEffect(() => {
     async function getHomePageData() {
@@ -47,6 +52,14 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     }
   })
 
+  useEffect(() => {
+    if (currentPath === "/") {
+      setSelectedBook(null)
+      setSelectedCategory(null)
+      setBackPath("/")
+    }
+  }, [currentPath, setBackPath, setSelectedBook, setSelectedCategory])
+
   if (loading) {
     return (
       <div className="flex w-screen h-screen justify-center items-center">
@@ -56,15 +69,17 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   }
 
   const value = {
-    loading,
-    setLoading,
-    isSidebarOpen,
-    setIsSidebarOpen,
+    backPath,
     fullListsData,
+    isSidebarOpen,
+    loading,
     selectedBook,
-    setSelectedBook,
     selectedCategory,
-    setSelectedCategory
+    setBackPath,
+    setIsSidebarOpen,
+    setLoading,
+    setSelectedBook,
+    setSelectedCategory,
   }
   return (
     <GlobalStateContext.Provider value={value as any}>
