@@ -29,6 +29,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "build:prod": "env-cmd -f .env.production craco build",
     "test": "craco test",
     "eject": "craco eject",
     "lint": "eslint .",
@@ -58,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.3",

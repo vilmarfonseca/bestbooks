@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "bestbooks-13272",
+    "prod": "bestbooks-13272"
+  },
+  "targets": {},
+  "etags": {}
+}
