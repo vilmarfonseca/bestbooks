@@ -1,7 +1,6 @@
-import FullPageSpinner from "@/components/FullPageSpinner"
 import { hoursDiff } from "@/helpers/functions"
 import { fetchAllLists } from "@/lib/api"
-import React, { useCallback, useContext, useEffect, useState } from "react"
+import React, { useCallback, useContext, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useLocalStorage } from "usehooks-ts"
 
@@ -18,7 +17,6 @@ type GlobalStateProviderProps = {
 export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   children,
 }) => {
-  const [loading, setLoading] = useState(false)
   const [backPath, setBackPath] = useLocalStorage("backPath", "/")
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage("sidebarControl", true)
   const [fullListsData, setFullListsData] = useLocalStorage("listsData", null as any)
@@ -76,20 +74,14 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     redirectWhenDataIsNotAvailable()
   }, [redirectWhenDataIsNotAvailable])
 
-  if (loading) {
-    return <FullPageSpinner />
-  }
-
   const value = {
     backPath,
     fullListsData,
     isSidebarOpen,
-    loading,
     selectedBook,
     selectedCategory,
     setBackPath,
     setIsSidebarOpen,
-    setLoading,
     setSelectedBook,
     setSelectedCategory,
   }

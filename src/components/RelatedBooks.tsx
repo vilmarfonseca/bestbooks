@@ -17,7 +17,13 @@ const RelatedBooks = () => {
   return (
     <section className="font-serif flex flex-col gap-2 md:gap-5 lg:gap-10">
       <h2 className="text-2xl lg:text-4xl">
-        More {selectedCategory.display_name.toLowerCase()} books
+        More{" "}
+        <span className="lowercase">
+          {selectedBook.originCategory
+            ? selectedBook.originCategory
+            : selectedCategory.display_name}{" "}
+          books
+        </span>
       </h2>
       <CategorizedRowItem
         items={relatedBooksData}

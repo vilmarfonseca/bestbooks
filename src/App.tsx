@@ -1,9 +1,10 @@
 import { GlobalStateProvider } from "@/context/GlobalStateContext"
 import Router from "@/pages/router"
 import { StyledEngineProvider } from "@mui/material"
-import React from "react"
+import React, { Suspense } from "react"
 import { BrowserRouter } from "react-router-dom"
-import { AuthProvider } from "./context/AuthContext"
+import { AuthProvider } from "@/context/AuthContext"
+import FullPageSpinner from "@/components/FullPageSpinner"
 
 const App: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const App: React.FC = () => {
       <BrowserRouter>
         <AuthProvider>
           <GlobalStateProvider>
-            <Router />
+            <Suspense fallback={<FullPageSpinner />}>
+              <Router />
+            </Suspense>
           </GlobalStateProvider>
         </AuthProvider>
       </BrowserRouter>

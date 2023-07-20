@@ -1,14 +1,59 @@
+import Notification from "@/components/NotificationBanner"
+import { AuthContext } from "@/context/AuthContext"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { capitalizeSentence } from "@/helpers/functions"
+import { removeBookFromMyList, saveBookToMyList } from "@/lib/database"
 import { Button, Divider, IconButton } from "@mui/material"
-import { useContext } from "react"
-import { MdBookmarkBorder } from "react-icons/md"
+import { useContext, useState } from "react"
+import { MdBookmark, MdBookmarkBorder } from "react-icons/md"
+import { useNavigate } from "react-router-dom"
 
 const BookDetails = () => {
-  const { selectedBook, selectedCategory } = useContext(GlobalStateContext)
+  const navigate = useNavigate()
+  const { currentUser }: any = useContext(AuthContext)
+  const { selectedBook, selectedCategory, setSelectedBook } =
+    useContext(GlobalStateContext)
+  const [showSavedNotification, setShowSavedNotification] = useState(false)
+
+  async function handleBookSaveToggle() {
+    if (currentUser?.uid) {
+      if (!selectedBook.saved) {
+        const addedBook = await saveBookToMyList(
+          currentUser,
+          selectedBook,
+          selectedCategory,
+        )
+
+        if (addedBook) {
+          setSelectedBook(addedBook)
+          setShowSavedNotification(true)
+        }
+      } else {
+        await removeBookFromMyList(currentUser, selectedBook)
+        const updatedBook = { ...selectedBook }
+
+        updatedBook.saved = false
+
+        setSelectedBook(updatedBook)
+        setShowSavedNotification(true)
+      }
+    } else {
+      navigate("/login", { replace: true })
+    }
+  }
 
   return (
     <section className="flex flex-col md:flex-row gap-10 md:gap-24 mb-10 lg:mb-20 w-full">
+      <Notification
+        open={showSavedNotification}
+        autoHideDuration={5000}
+        handleClose={setShowSavedNotification}
+        message={
+          selectedBook.saved
+            ? "Book added to your list"
+            : "Book removed from your list"
+        }
+      />
       <div className="w-full md:w-auto flex justify-center relative">
         <img
           className="w-[200px] md:w-[275px] shadow-card"
@@ -22,15 +67,21 @@ const BookDetails = () => {
             <h2 className="text-2xl lg:text-4xl">
               {capitalizeSentence(selectedBook.title)}
             </h2>
-            <IconButton aria-label="Save to My List">
-              <MdBookmarkBorder />
+            <IconButton
+              aria-label="Save to My List"
+              onClick={() => handleBookSaveToggle()}
+            >
+              {selectedBook.saved ? <MdBookmark /> : <MdBookmarkBorder />}
             </IconButton>
           </div>
           <h3 className="text-xl lg:text-2xl text-gray-800">
             {selectedBook.author}
           </h3>
           <h3 className="text-lg lg:text-xl text-gray-800 mt-4">
-            #{selectedBook.rank} in {selectedCategory.display_name}
+            #{selectedBook.rank} in{" "}
+            {selectedBook.originCategory
+              ? selectedBook.originCategory
+              : selectedCategory.display_name}
           </h3>
           <Divider className="my-2" />
 

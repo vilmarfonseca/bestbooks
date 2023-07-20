@@ -5,6 +5,7 @@ import { GlobalStateContext } from "@/context/GlobalStateContext"
 import useDeviceType from "@/hooks/useDeviceType"
 import clsx from "clsx"
 import {
+  MdBookmarkBorder,
   MdCalendarViewMonth,
   MdCalendarViewWeek,
   MdClose,
@@ -22,7 +23,10 @@ export default function Sidebar() {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
 
   const sidebarItems = {
-    explore: [{ displayName: "Top Books", icon: <MdOutlineHome />, href: "/" }],
+    explore: [
+      { displayName: "Top Books", icon: <MdOutlineHome />, href: "/" },
+      { displayName: "My Books", icon: <MdBookmarkBorder />, href: "/my-books", authOnly: true },
+    ],
     byDate: [
       {
         displayName: "Weekly Lists",
@@ -121,7 +125,7 @@ export default function Sidebar() {
               <span className="uppercase opacity-50 font-black text-xs tracking-[.1875rem]">
                 Explore
               </span>
-              {sidebarItems.explore.map((item, idx) => (
+              {sidebarItems.explore.filter(item => currentUser ? item : !item.authOnly).map((item, idx) => (
                 <div key={`sidebar-explore-item-${idx}`}>
                   <SidebarItem
                     href={item.href}

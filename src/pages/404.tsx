@@ -5,7 +5,6 @@ import React, { useEffect } from "react"
 import { MdErrorOutline } from "react-icons/md"
 
 const NotFoundPage: React.FC<PageProps> = ({ title }) => {
-
   useEffect(() => {
     document.title = title
   }, [title])
@@ -21,7 +20,11 @@ const NotFoundPage: React.FC<PageProps> = ({ title }) => {
                 Sorry, the page you're looking for doesn't exists
               </h2>
             </div>
-            <Button variant="outlined" className="text-black border-black normal" href="/">
+            <Button
+              variant="outlined"
+              className="normal-case font-bold text-white bg-cta border-cta hover:bg-white hover:text-cta"
+              href="/"
+            >
               Back to Homepage
             </Button>
           </div>
