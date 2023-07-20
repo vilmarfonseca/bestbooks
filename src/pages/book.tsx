@@ -4,7 +4,7 @@ import Layout from "@/components/Layout"
 import RelatedBooks from "@/components/RelatedBooks"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { PageProps } from "@/types/pages.types"
-import { capitalizeSentence } from "@/utils/helpers"
+import { capitalizeSentence } from "@/helpers/functions"
 import { Divider, Fade } from "@mui/material"
 import React, { useContext, useEffect } from "react"
 

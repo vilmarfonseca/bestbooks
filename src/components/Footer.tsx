@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
         "max-w-[1800px] w-full h-20 flex items-center justify-center border-t border-secondary border-opacity-25"
       }
     >
-      © 2023 BestBooks
+      {`© BestBooks ${new Date().getFullYear()}`}
     </div>
   )
 }

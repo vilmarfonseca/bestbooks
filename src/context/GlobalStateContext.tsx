@@ -1,5 +1,5 @@
 import { fetchAllLists } from "@/lib/api"
-import { hoursDiff } from "@/utils/helpers"
+import { hoursDiff } from "@/helpers/functions"
 import { CircularProgress } from "@mui/material"
 import React, { useCallback, useContext, useEffect, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"

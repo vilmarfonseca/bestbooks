@@ -1,5 +1,5 @@
 import { GlobalStateContext } from "@/context/GlobalStateContext"
-import { capitalizeSentence } from "@/utils/helpers"
+import { capitalizeSentence } from "@/helpers/functions"
 import { Button, Divider, IconButton } from "@mui/material"
 import { useContext } from "react"
 import { MdBookmarkBorder } from "react-icons/md"
