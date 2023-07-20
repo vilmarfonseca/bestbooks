@@ -1,7 +1,7 @@
 import { fetchAllLists } from "@/lib/api"
 import { hoursDiff } from "@/utils/helpers"
 import { CircularProgress } from "@mui/material"
-import React, { useContext, useEffect, useState } from "react"
+import React, { useCallback, useContext, useEffect, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"
 import { useLocation, useNavigate } from "react-router-dom"
 
@@ -35,6 +35,7 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   const location = useLocation()
   const currentPath = location.pathname
 
+  // Handle initial data request
   useEffect(() => {
     async function getHomePageData() {
       const listsData = await fetchAllLists()
@@ -53,24 +54,27 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     }
   })
 
-  useEffect(() => {
+  const resetInitialNavigationState = useCallback(() => {
     if (currentPath === "/") {
       setSelectedBook(null)
       setSelectedCategory(null)
       setBackPath("/")
     }
+  }, [currentPath, setBackPath, setSelectedBook, setSelectedCategory])
 
+  const redirectWhenDataIsNotAvailable = useCallback(() => {
     if (currentPath !== "/" && !fullListsData) {
       navigate("/", { replace: true })
     }
-  }, [
-    currentPath,
-    fullListsData,
-    navigate,
-    setBackPath,
-    setSelectedBook,
-    setSelectedCategory,
-  ])
+  }, [currentPath, fullListsData, navigate])
+
+  useEffect(() => {
+    resetInitialNavigationState()
+  }, [resetInitialNavigationState])
+
+  useEffect(() => {
+    redirectWhenDataIsNotAvailable()
+  }, [redirectWhenDataIsNotAvailable])
 
   if (loading) {
     return (
