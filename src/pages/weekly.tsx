@@ -23,8 +23,6 @@ const WeeklyListsPage: React.FC<PageProps> = ({ title }) => {
     }
   }, [fullListsData])
 
-  console.log(data, "data")
-
   return (
     <Layout>
       <div className="py-5 w-full">

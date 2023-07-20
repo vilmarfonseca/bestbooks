@@ -127,7 +127,7 @@ const RegisterForm: React.FC | React.ElementType = () => {
         type="submit"
         className="mt-5 bg-cta text-white font-sans font-bold normal-case"
       >
-        Login
+        Register
       </Button>
 
       <div className="flex justify-center">
