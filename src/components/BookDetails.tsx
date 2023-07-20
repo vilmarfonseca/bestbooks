@@ -1,14 +1,36 @@
+import Notification from "@/components/NotificationBanner"
+import { AuthContext } from "@/context/AuthContext"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { capitalizeSentence } from "@/helpers/functions"
+import { saveBookToFirestore } from "@/lib/database"
 import { Button, Divider, IconButton } from "@mui/material"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { MdBookmarkBorder } from "react-icons/md"
+import { useNavigate } from "react-router-dom"
 
 const BookDetails = () => {
+  const navigate = useNavigate()
+  const { currentUser }: any = useContext(AuthContext)
   const { selectedBook, selectedCategory } = useContext(GlobalStateContext)
+  const [showSavedNotification, setShowSavedNotification] = useState(false)
+
+  async function handleAddBookToMyList() {
+    if (currentUser) {
+      await saveBookToFirestore(currentUser, selectedBook)
+      setShowSavedNotification(true)
+    } else {
+      navigate("/")
+    }
+  }
 
   return (
     <section className="flex flex-col md:flex-row gap-10 md:gap-24 mb-10 lg:mb-20 w-full">
+      <Notification
+        open={showSavedNotification}
+        autoHideDuration={5000}
+        handleClose={setShowSavedNotification}
+        message="Book added to your list!"
+      />
       <div className="w-full md:w-auto flex justify-center relative">
         <img
           className="w-[200px] md:w-[275px] shadow-card"
@@ -22,7 +44,10 @@ const BookDetails = () => {
             <h2 className="text-2xl lg:text-4xl">
               {capitalizeSentence(selectedBook.title)}
             </h2>
-            <IconButton aria-label="Save to My List">
+            <IconButton
+              aria-label="Save to My List"
+              onClick={() => handleAddBookToMyList()}
+            >
               <MdBookmarkBorder />
             </IconButton>
           </div>

@@ -1,4 +1,3 @@
-import FullPageSpinner from "@/components/FullPageSpinner"
 import { getUserDataFromFirestore, initializeNewUser } from "@/lib/database"
 import { auth } from "@/services/firebase"
 import {
@@ -6,7 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth"
 import firebase from "firebase/compat"
-import React, { useCallback, useContext, useEffect, useState } from "react"
+import React, { useCallback, useContext, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLocalStorage } from "usehooks-ts"
 
@@ -22,7 +21,6 @@ type AuthProviderProps = {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
   const [userData, setUserData] = useLocalStorage<any>("userData", null)
   const [currentUser, setCurrentUser] = useLocalStorage<firebase.User | null>(
     "user",
@@ -56,7 +54,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     return auth.onAuthStateChanged((firebaseUser) => {
       setCurrentUser(firebaseUser as firebase.User | null)
-      setLoading(false)
     })
   }, [setCurrentUser])
 
@@ -73,10 +70,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     getInitialUserData()
   }, [getInitialUserData])
 
-  if (loading) {
-    return <FullPageSpinner />
-  }
-
   const value = {
     currentUser,
     userData,
@@ -84,5 +77,5 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signup,
     logout,
   }
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={value as any}>{children}</AuthContext.Provider>
 }

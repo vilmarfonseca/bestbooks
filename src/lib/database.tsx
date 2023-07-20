@@ -3,22 +3,24 @@ import { doc, getDoc, setDoc } from "firebase/firestore"
 
 export const initializeNewUser = async (currentUser: any) => {
   const usersRef = doc(database, "users", currentUser.uid)
-  setDoc(usersRef, { saved_books:[] })
+  setDoc(usersRef, { saved_books: [] })
 }
 
 export const getUserDataFromFirestore = async (currentUser: any) => {
-  const docRef = doc(database, "users", "KY19FfcvtyZ5HQ0luWoabHJ47Lp2")
+  const docRef = doc(database, "users", currentUser.uid)
   const docSnap = await getDoc(docRef)
 
   if (docSnap.exists()) {
     return docSnap.data()
   } else {
     console.log("No such document!")
+    return null
   }
 }
 
-export const saveBook = async (currentUser: any, newBookData: any, savedList: any) => {
-  const newList = [...savedList]
+export const saveBookToFirestore = async (currentUser: any, newBookData: any) => {
+  const currentList = await getUserDataFromFirestore(currentUser)
+  const newList = [...currentList?.saved_books]
 
   newList.push(newBookData)
 
