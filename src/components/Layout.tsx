@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         )}
       >
         <Header />
-        <main className="max-w-[1440px] mt-5 mb-10 lg:mt-10 lg:mb-20">
+        <main className="max-w-[1440px] mt-5 mb-10 lg:mt-10 lg:mb-20 w-full">
           {children}
         </main>
         <Footer />

@@ -2,24 +2,43 @@ import Notification from "@/components/NotificationBanner"
 import { AuthContext } from "@/context/AuthContext"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { capitalizeSentence } from "@/helpers/functions"
-import { saveBookToFirestore } from "@/lib/database"
+import { removeBookFromMyList, saveBookToMyList } from "@/lib/database"
 import { Button, Divider, IconButton } from "@mui/material"
 import { useContext, useState } from "react"
-import { MdBookmarkBorder } from "react-icons/md"
+import { MdBookmark, MdBookmarkBorder } from "react-icons/md"
 import { useNavigate } from "react-router-dom"
 
 const BookDetails = () => {
   const navigate = useNavigate()
   const { currentUser }: any = useContext(AuthContext)
-  const { selectedBook, selectedCategory } = useContext(GlobalStateContext)
+  const { selectedBook, selectedCategory, setSelectedBook } =
+    useContext(GlobalStateContext)
   const [showSavedNotification, setShowSavedNotification] = useState(false)
 
-  async function handleAddBookToMyList() {
-    if (currentUser) {
-      await saveBookToFirestore(currentUser, selectedBook)
-      setShowSavedNotification(true)
+  async function handleBookSaveToggle() {
+    if (currentUser?.uid) {
+      if (!selectedBook.saved) {
+        const addedBook = await saveBookToMyList(
+          currentUser,
+          selectedBook,
+          selectedCategory,
+        )
+
+        if (addedBook) {
+          setSelectedBook(addedBook)
+          setShowSavedNotification(true)
+        }
+      } else {
+        await removeBookFromMyList(currentUser, selectedBook)
+        const updatedBook = { ...selectedBook }
+
+        updatedBook.saved = false
+
+        setSelectedBook(updatedBook)
+        setShowSavedNotification(true)
+      }
     } else {
-      navigate("/")
+      navigate("/login", { replace: true })
     }
   }
 
@@ -29,7 +48,11 @@ const BookDetails = () => {
         open={showSavedNotification}
         autoHideDuration={5000}
         handleClose={setShowSavedNotification}
-        message="Book added to your list!"
+        message={
+          selectedBook.saved
+            ? "Book added to your list"
+            : "Book removed from your list"
+        }
       />
       <div className="w-full md:w-auto flex justify-center relative">
         <img
@@ -46,16 +69,19 @@ const BookDetails = () => {
             </h2>
             <IconButton
               aria-label="Save to My List"
-              onClick={() => handleAddBookToMyList()}
+              onClick={() => handleBookSaveToggle()}
             >
-              <MdBookmarkBorder />
+              {selectedBook.saved ? <MdBookmark /> : <MdBookmarkBorder />}
             </IconButton>
           </div>
           <h3 className="text-xl lg:text-2xl text-gray-800">
             {selectedBook.author}
           </h3>
           <h3 className="text-lg lg:text-xl text-gray-800 mt-4">
-            #{selectedBook.rank} in {selectedCategory.display_name}
+            #{selectedBook.rank} in{" "}
+            {selectedBook.originCategory
+              ? selectedBook.originCategory
+              : selectedCategory.display_name}
           </h3>
           <Divider className="my-2" />
 

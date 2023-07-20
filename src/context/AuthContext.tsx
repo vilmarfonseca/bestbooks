@@ -1,4 +1,4 @@
-import { getUserDataFromFirestore, initializeNewUser } from "@/lib/database"
+import { getUserData, initializeNewUser } from "@/lib/database"
 import { auth } from "@/services/firebase"
 import {
   createUserWithEmailAndPassword,
@@ -59,7 +59,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const getInitialUserData = useCallback(async () => {
     if (currentUser?.uid && !userData) {
-      const data = await getUserDataFromFirestore(currentUser)
+      const data = await getUserData(currentUser)
       if (data) {
         setUserData(data)
       }

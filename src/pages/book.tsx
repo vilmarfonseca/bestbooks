@@ -7,8 +7,11 @@ import { PageProps } from "@/types/pages.types"
 import { capitalizeSentence } from "@/helpers/functions"
 import { Divider, Fade } from "@mui/material"
 import React, { useContext, useEffect } from "react"
+import { useLocation } from "react-router-dom"
 
 const SingleBookPage: React.FC<PageProps> = ({ title }) => {
+  const location = useLocation()
+  const currentPath = location.pathname
   const { selectedBook } = useContext(GlobalStateContext)
 
   useEffect(() => {
@@ -25,9 +28,12 @@ const SingleBookPage: React.FC<PageProps> = ({ title }) => {
 
           <BookDetails />
 
-          <Divider />
-
-          <RelatedBooks />
+          {!(currentPath === "/my-books/book") && (
+            <>
+              <Divider />
+              <RelatedBooks />
+            </>
+          )}
         </div>
       </Fade>
     </Layout>

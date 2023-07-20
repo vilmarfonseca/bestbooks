@@ -9,6 +9,7 @@ const SingleBookPage = React.lazy(() => import("@/pages/book"))
 const DateListsPage = React.lazy(() => import("@/pages/date"))
 const CategoryListsPage = React.lazy(() => import("@/pages/category-lists"))
 const NotFoundPage = React.lazy(() => import("@/pages/404"))
+const MyBooksPage = React.lazy(() => import("@/pages/my-books"))
 
 const pageTitlePrefix = "BestBooks | "
 
@@ -32,6 +33,14 @@ const pagesData: routerType[] = [
   {
     path: "/category",
     element: <SingleCategoryPage title={`${pageTitlePrefix}`} />,
+  },
+  {
+    path: "/my-books",
+    element: <MyBooksPage title={`${pageTitlePrefix}`} />,
+  },
+  {
+    path: "/my-books/book",
+    element: <SingleBookPage title={`${pageTitlePrefix}`} />,
   },
   {
     path: "/category-lists/:queryCategory",

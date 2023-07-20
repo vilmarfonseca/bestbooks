@@ -25,7 +25,10 @@ const Book = ({ data, listData }: { data?: any; listData?: any }) => {
       className="hover:scale-110 transition-all duration-200 ease-in-out shadow-card h-full"
       onClick={() => handleSelectBook()}
     >
-      <a href="/book" className="w-full h-full relative">
+      <a
+        href={currentPath === ("/my-books") ? "/my-books/book" : "/book"}
+        className="w-full h-full relative"
+      >
         <BookRankBadge rank={data.rank} />
         <img
           alt=""
