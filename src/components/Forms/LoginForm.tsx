@@ -1,8 +1,13 @@
+import { AuthContext } from "@/context/AuthContext"
 import { Button, Link, TextField } from "@mui/material"
-import React from "react"
+import React, { useContext } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 const LoginForm: React.FC | React.ElementType = () => {
+  const { currentUser, login }: any = useContext(AuthContext)
+  const navigate = useNavigate();
+  
   const {
     handleSubmit,
     formState: { errors },
@@ -11,7 +16,16 @@ const LoginForm: React.FC | React.ElementType = () => {
   } = useForm()
 
   const handleLogin: SubmitHandler<FieldValues> = async ({ email, password }) => {
-    //TODO
+    try {
+      await login(email, password)
+      navigate("/")
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  if (currentUser) {
+    navigate("/", { replace: true })
   }
 
   return (

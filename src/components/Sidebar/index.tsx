@@ -11,12 +11,15 @@ import {
   MdOutlineHome,
   MdOutlineLayers,
   MdOutlineLogin,
+  MdOutlineLogout,
 } from "react-icons/md"
 import SidebarItem from "./SidebarItem"
+import { AuthContext } from "@/context/AuthContext"
 
 export default function Sidebar() {
-  const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
   const { isDesktop } = useDeviceType()
+  const { currentUser, logout }: any = useContext(AuthContext)
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
 
   const sidebarItems = {
     explore: [{ displayName: "Top Books", icon: <MdOutlineHome />, href: "/" }],
@@ -160,11 +163,19 @@ export default function Sidebar() {
             </div>
           </div>
 
-          <SidebarItem
-            href="/login"
-            displayName="Sign In"
-            icon={<MdOutlineLogin />}
-          />
+          {!currentUser ? (
+            <SidebarItem
+              href="/login"
+              displayName="Sign in"
+              icon={<MdOutlineLogin />}
+            />
+          ) : (
+            <SidebarItem
+              onClick={() => logout()}
+              displayName="Sign out"
+              icon={<MdOutlineLogout />}
+            />
+          )}
         </div>
       </Slide>
     </>

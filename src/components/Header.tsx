@@ -1,3 +1,4 @@
+import { AuthContext } from "@/context/AuthContext"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import useDeviceType from "@/hooks/useDeviceType"
 import { Button, IconButton } from "@mui/material"
@@ -5,6 +6,7 @@ import React, { useContext } from "react"
 import { MdOutlineAccountCircle, MdOutlineMenu } from "react-icons/md"
 
 const Header: React.FC = () => {
+  const { currentUser }: any = useContext(AuthContext)
   const { isSidebarOpen, setIsSidebarOpen } = useContext(GlobalStateContext)
   const { isDesktop } = useDeviceType()
 
@@ -35,15 +37,19 @@ const Header: React.FC = () => {
         </a>
       </div>
       <div className="flex items-center gap-4">
-        <Button
-          href="/login"
-          className="normal-case bg-cta text-white font-sans font-bold py-2 px-4 rounded-full shadow-sm transition-all duration-200 hover:bg-white hover:text-cta"
-        >
-          Sign In
-        </Button>
-        {/* TODO: Change based on user logged */}
-        {/* <span className="hidden lg:flex">placeholder@email.com</span>
-        <MdOutlineAccountCircle className="w-8 h-8 lg:w-10 lg:h-10" /> */}
+        {!currentUser ? (
+          <Button
+            href="/login"
+            className="normal-case bg-cta text-white font-sans font-bold py-2 px-4 rounded-full shadow-sm transition-all duration-200 hover:bg-white hover:text-cta"
+          >
+            Sign In
+          </Button>
+        ) : (
+          <>
+            <span className="hidden lg:flex">{currentUser.email}</span>
+            <MdOutlineAccountCircle className="w-8 h-8 lg:w-10 lg:h-10" />
+          </>
+        )}
       </div>
     </div>
   )

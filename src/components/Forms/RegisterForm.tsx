@@ -1,9 +1,13 @@
+import { AuthContext } from "@/context/AuthContext"
 import { emailRegExp, passwordRegExp } from "@/helpers/validation"
 import { Button, Link, TextField } from "@mui/material"
-import React from "react"
+import React, { useContext } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 const RegisterForm: React.FC | React.ElementType = () => {
+  const { currentUser, signup }: any = useContext(AuthContext)
+  const navigate = useNavigate()
   const {
     handleSubmit,
     formState: { errors },
@@ -13,7 +17,17 @@ const RegisterForm: React.FC | React.ElementType = () => {
   } = useForm()
 
   const handleRegister: SubmitHandler<FieldValues> = async ({ email, password }) => {
-    // TODO
+    try {
+      await signup(email, password)
+      navigate("/")
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  if (currentUser) {
+    navigate("/", { replace: true })
   }
 
   return (

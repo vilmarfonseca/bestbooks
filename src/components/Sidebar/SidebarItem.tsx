@@ -4,11 +4,12 @@ import React from "react"
 import clsx from "clsx"
 
 interface SidebarItemProps {
-  itemKey?: string | undefined
-  href?: string
   className?: string
   displayName: string
+  href?: string
   icon?: React.ReactNode
+  itemKey?: string | undefined
+  onClick?: () => void
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -16,12 +17,14 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   className,
   displayName,
   icon,
+  onClick
 }) => {
   return (
     <div className="w-full">
       <Button
         href={href}
         startIcon={icon}
+        onClick={onClick}
         className={clsx(
           className,
           "text-black normal-case font-sans w-full flex justify-start text-lg",

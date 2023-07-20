@@ -1,16 +1,19 @@
+import { GlobalStateProvider } from "@/context/GlobalStateContext"
 import Router from "@/pages/router"
 import { StyledEngineProvider } from "@mui/material"
 import React from "react"
 import { BrowserRouter } from "react-router-dom"
-import { GlobalStateProvider } from "@/context/GlobalStateContext"
+import { AuthProvider } from "./context/AuthContext"
 
 const App: React.FC = () => {
   return (
     <StyledEngineProvider>
       <BrowserRouter>
-        <GlobalStateProvider>
-          <Router />
-        </GlobalStateProvider>
+        <AuthProvider>
+          <GlobalStateProvider>
+            <Router />
+          </GlobalStateProvider>
+        </AuthProvider>
       </BrowserRouter>
     </StyledEngineProvider>
   )

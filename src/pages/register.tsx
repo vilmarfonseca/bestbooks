@@ -1,7 +1,7 @@
-import { useEffect } from "react"
 import RegisterImage from "@/assets/img/register.jpg"
 import RegisterForm from "@/components/Forms/RegisterForm"
-import { Fade, Link } from "@mui/material"
+import { Fade } from "@mui/material"
+import { useEffect } from "react"
 
 const RegisterPage = ({ title }: { title: string }) => {
   useEffect(() => {

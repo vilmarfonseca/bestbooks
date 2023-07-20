@@ -1,9 +1,9 @@
-import { fetchAllLists } from "@/lib/api"
+import FullPageSpinner from "@/components/FullPageSpinner"
 import { hoursDiff } from "@/helpers/functions"
-import { CircularProgress } from "@mui/material"
+import { fetchAllLists } from "@/lib/api"
 import React, { useCallback, useContext, useEffect, useState } from "react"
-import { useLocalStorage } from "usehooks-ts"
 import { useLocation, useNavigate } from "react-router-dom"
+import { useLocalStorage } from "usehooks-ts"
 
 export const GlobalStateContext = React.createContext<any>({})
 
@@ -77,11 +77,7 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   }, [redirectWhenDataIsNotAvailable])
 
   if (loading) {
-    return (
-      <div className="flex w-screen h-screen justify-center items-center">
-        <CircularProgress className="h-10 w-10 text-cta" />
-      </div>
-    )
+    return <FullPageSpinner />
   }
 
   const value = {
