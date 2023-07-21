@@ -3,7 +3,8 @@ import useDeviceType from "@/hooks/useDeviceType"
 import { fetchAllLists } from "@/lib/api"
 import React, { useCallback, useContext, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useLocalStorage } from "usehooks-ts"
+import { useLocalStorage, useScreen } from "usehooks-ts"
+
 
 export const GlobalStateContext = React.createContext<any>({})
 
@@ -19,6 +20,7 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   children,
 }) => {
   const { isDesktop } = useDeviceType()
+  const screen = useScreen()
   const [backPath, setBackPath] = useLocalStorage("backPath", "/")
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage("sidebarControl", true)
   const [fullListsData, setFullListsData] = useLocalStorage("listsData", null as any)
@@ -33,10 +35,10 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
 
   // Prevent scroll when sidebar is opened
   useEffect(() => {
-    if (!isDesktop) {
+    if (screen?.width as any < 1024) {
       document.body.style.overflow = isSidebarOpen ? "hidden" : "unset"
     }
-  }, [isDesktop, isSidebarOpen])
+  }, [isDesktop, isSidebarOpen, screen?.width])
 
   const navigate = useNavigate()
   const location = useLocation()
