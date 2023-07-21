@@ -120,8 +120,8 @@ export default function Sidebar() {
               <MdClose className="h-5 w-5" />
             </IconButton>
           )}
-          <div className="flex flex-col gap-10 items-start">
-            <div className="w-full mt-10">
+          <div className="flex flex-col gap-5 lg:gap-10 items-start">
+            <div className="w-full mt-2 lg:mt-10">
               <span className="uppercase opacity-50 font-black text-xs tracking-[.1875rem]">
                 Explore
               </span>

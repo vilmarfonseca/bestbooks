@@ -1,4 +1,5 @@
 import { hoursDiff } from "@/helpers/functions"
+import useDeviceType from "@/hooks/useDeviceType"
 import { fetchAllLists } from "@/lib/api"
 import React, { useCallback, useContext, useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -17,6 +18,7 @@ type GlobalStateProviderProps = {
 export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   children,
 }) => {
+  const { isDesktop } = useDeviceType()
   const [backPath, setBackPath] = useLocalStorage("backPath", "/")
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage("sidebarControl", true)
   const [fullListsData, setFullListsData] = useLocalStorage("listsData", null as any)
@@ -28,6 +30,13 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     "selectedCategory",
     null as any,
   )
+
+  // Prevent scroll when sidebar is opened
+  useEffect(() => {
+    if (!isDesktop) {
+      document.body.style.overflow = isSidebarOpen ? "hidden" : "unset"
+    }
+  }, [isDesktop, isSidebarOpen])
 
   const navigate = useNavigate()
   const location = useLocation()

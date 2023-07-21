@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { isDesktop } = useDeviceType()
 
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full justify-between overflow-y-hidden">
       <div className={clsx(!isDesktop && "absolute", "max-w-[250px]")}>
         <Sidebar />
       </div>
