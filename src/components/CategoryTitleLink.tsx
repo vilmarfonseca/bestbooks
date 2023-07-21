@@ -1,14 +1,12 @@
 import { GlobalStateContext } from "@/context/GlobalStateContext"
+import { CategoryTitleLinkProps } from "@/types/components/categoryTitleLink.types"
 import { Button } from "@mui/material"
-import { useContext } from "react"
+import React, { useContext } from "react"
 import { MdOutlineChevronRight } from "react-icons/md"
 
-const CategoryTitleLink = ({
+const CategoryTitleLink: React.FC<CategoryTitleLinkProps> = ({
   title,
   categoryData,
-}: {
-  title: string
-  categoryData?: any
 }) => {
   const { setSelectedCategory } = useContext(GlobalStateContext)
 

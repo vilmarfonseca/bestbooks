@@ -1,6 +1,7 @@
+import CustomButton from "@/components/Buttons/CustomButton"
 import { AuthContext } from "@/context/AuthContext"
 import { emailRegExp, passwordRegExp } from "@/helpers/validation"
-import { Button, Link, TextField } from "@mui/material"
+import { Link, TextField } from "@mui/material"
 import React, { useContext } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
@@ -123,12 +124,7 @@ const RegisterForm: React.FC | React.ElementType = () => {
         <Link href="/login">{"Already a member? Sign In"}</Link>
       </p>
 
-      <Button
-        type="submit"
-        className="mt-5 bg-cta text-white font-sans font-bold normal-case"
-      >
-        Register
-      </Button>
+      <CustomButton type="submit" className="mt-5" text="Register" />
 
       <div className="flex justify-center">
         <Link href="/">Back to Home</Link>

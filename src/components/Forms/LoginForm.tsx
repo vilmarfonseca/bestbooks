@@ -1,13 +1,14 @@
+import CustomButton from "@/components/Buttons/CustomButton"
 import { AuthContext } from "@/context/AuthContext"
-import { Button, Link, TextField } from "@mui/material"
+import { Link, TextField } from "@mui/material"
 import React, { useContext } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
 const LoginForm: React.FC | React.ElementType = () => {
   const { currentUser, login }: any = useContext(AuthContext)
-  const navigate = useNavigate();
-  
+  const navigate = useNavigate()
+
   const {
     handleSubmit,
     formState: { errors },
@@ -79,12 +80,7 @@ const LoginForm: React.FC | React.ElementType = () => {
         <Link href="/register">{"Don't have an account? Sign Up"}</Link>
       </p>
 
-      <Button
-        type="submit"
-        className="mt-5 bg-cta text-white font-sans font-bold normal-case"
-      >
-        Login
-      </Button>
+      <CustomButton type="submit" className="mt-5" text="Login" />
 
       <div className="flex justify-center">
         <Link href="/">Back to Home</Link>

@@ -1,9 +1,10 @@
 import { AuthContext } from "@/context/AuthContext"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import useDeviceType from "@/hooks/useDeviceType"
-import { Button, IconButton } from "@mui/material"
+import { IconButton } from "@mui/material"
 import React, { useContext } from "react"
 import { MdOutlineAccountCircle, MdOutlineMenu } from "react-icons/md"
+import CustomButton from "./Buttons/CustomButton"
 
 const Header: React.FC = () => {
   const { currentUser }: any = useContext(AuthContext)
@@ -38,12 +39,7 @@ const Header: React.FC = () => {
       </div>
       <div className="flex items-center gap-4">
         {!currentUser ? (
-          <Button
-            href="/login"
-            className="normal-case bg-cta text-white font-sans font-bold py-2 px-4 rounded-full shadow-sm transition-all duration-200 hover:bg-white hover:text-cta"
-          >
-            Sign In
-          </Button>
+          <CustomButton variant="pill" text="Sign In" href="/login" />
         ) : (
           <>
             <span className="hidden lg:flex">{currentUser.email}</span>

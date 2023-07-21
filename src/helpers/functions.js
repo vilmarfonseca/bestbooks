@@ -6,5 +6,7 @@ export function hoursDiff(dt2, dt1) {
 }
 
 export function capitalizeSentence(string) {
-  return string.toLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+  return string
+    .toLowerCase()
+    .replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase())
 }

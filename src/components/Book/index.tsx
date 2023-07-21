@@ -1,9 +1,10 @@
 import { GlobalStateContext } from "@/context/GlobalStateContext"
-import { useContext } from "react"
-import BookRankBadge from "@/components/BookRankBadge"
+import React, { useContext } from "react"
+import BookRankBadge from "@/components/Book/BookRankBadge"
 import { useLocation } from "react-router-dom"
+import { BookProps } from "@/types/components/book.types"
 
-const Book = ({ data, listData }: { data?: any; listData?: any }) => {
+const Book: React.FC<BookProps> = ({ data, listData }) => {
   const { setSelectedBook, setSelectedCategory, setBackPath } =
     useContext(GlobalStateContext)
 
@@ -26,7 +27,7 @@ const Book = ({ data, listData }: { data?: any; listData?: any }) => {
       onClick={() => handleSelectBook()}
     >
       <a
-        href={currentPath === ("/my-books") ? "/my-books/book" : "/book"}
+        href={currentPath === "/my-books" ? "/my-books/book" : "/book"}
         className="w-full h-full relative"
       >
         <BookRankBadge rank={data.rank} />

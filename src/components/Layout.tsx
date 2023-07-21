@@ -2,7 +2,7 @@ import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import Sidebar from "@/components/Sidebar"
 import useDeviceType from "@/hooks/useDeviceType"
-import { LayoutProps } from "@/types/layout.types"
+import { LayoutProps } from "@/types/components/layout.types"
 import clsx from "clsx"
 import React from "react"
 

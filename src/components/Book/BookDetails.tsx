@@ -1,4 +1,4 @@
-import Notification from "@/components/NotificationBanner"
+import Notification from "@/components/Feedback/NotificationBanner"
 import { AuthContext } from "@/context/AuthContext"
 import { GlobalStateContext } from "@/context/GlobalStateContext"
 import { capitalizeSentence } from "@/helpers/functions"

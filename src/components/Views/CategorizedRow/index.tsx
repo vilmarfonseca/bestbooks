@@ -2,13 +2,12 @@ import CategoryTitleLink from "@/components/CategoryTitleLink"
 import CategorizedRowItem from "@/components/Views/CategorizedRow/CategorizedRowItem"
 import useDeviceType from "@/hooks/useDeviceType"
 import { Skeleton } from "@mui/material"
+import React from "react"
+import { CategorizedRowsViewProps } from "@/types/components/categorizedRow.types"
 
-const CategorizedRowsView = ({
+const CategorizedRowsView: React.FC<CategorizedRowsViewProps> = ({
   data,
   itemsPerRow,
-}: {
-  data: Array<any>
-  itemsPerRow: number
 }) => {
   const { isMobile } = useDeviceType()
 

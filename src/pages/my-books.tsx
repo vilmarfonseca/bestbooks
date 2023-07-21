@@ -1,4 +1,5 @@
 import BackButton from "@/components/Buttons/BackButton"
+import NoDataFound from "@/components/Feedback/NoDataFound"
 import Layout from "@/components/Layout"
 import GridListingView from "@/components/Views/GridListingView"
 import { AuthContext } from "@/context/AuthContext"
@@ -7,7 +8,6 @@ import { getUserData } from "@/lib/database"
 import { PageProps } from "@/types/pages.types"
 import { Fade, Skeleton } from "@mui/material"
 import React, { useContext, useEffect, useState } from "react"
-import NoDataFound from "@/components/NoDataFound"
 
 const MyBooksPage: React.FC<PageProps> = ({ title }) => {
   const { isMobile } = useDeviceType()

@@ -1,16 +1,13 @@
+import { NotificationBannerProps } from "@/types/components/notificationBanner.types"
 import { IconButton, Snackbar } from "@mui/material"
+import React from "react"
 import { MdClose } from "react-icons/md"
 
-const NotificationBanner = ({
+const NotificationBanner: React.FC<NotificationBannerProps> = ({
   open,
   handleClose,
   autoHideDuration,
   message,
-}: {
-  open: boolean
-  handleClose: any
-  autoHideDuration: number
-  message: string
 }) => {
   const close = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {

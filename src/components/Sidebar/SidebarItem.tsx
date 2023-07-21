@@ -1,23 +1,14 @@
+import { SidebarItemProps } from "@/types/components/sidebar.types"
 import { Button } from "@mui/material"
-import React from "react"
-
 import clsx from "clsx"
-
-interface SidebarItemProps {
-  className?: string
-  displayName: string
-  href?: string
-  icon?: React.ReactNode
-  itemKey?: string | undefined
-  onClick?: () => void
-}
+import React from "react"
 
 const SidebarItem: React.FC<SidebarItemProps> = ({
   href,
   className,
   displayName,
   icon,
-  onClick
+  onClick,
 }) => {
   return (
     <div className="w-full">
