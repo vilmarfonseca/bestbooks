@@ -96,6 +96,15 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## Future Work
+We have a few items listed for future work that weren't addressed for now due to the availability. 
+
+- Add jest testing into individual components. 
+- Add Related books on listing view
+- Different types of login (e.g. Google, Facebook, etc)
+- Save user name and settings
+- Dark mode
+
 ## License
 
 BesbBooks is released under the MIT License. You are free to use, modify, and distribute this project as per the terms of the license.
