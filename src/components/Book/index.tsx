@@ -28,7 +28,7 @@ const Book: React.FC<BookProps> = ({ data, listData }) => {
     >
       <a
         href={currentPath === "/my-books" ? "/my-books/book" : "/book"}
-        className="w-full h-full relative"
+        className="w-full h-full relative flex justify-end"
       >
         <BookRankBadge rank={data.rank} />
         <img
