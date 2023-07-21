@@ -2,19 +2,37 @@ import { database } from "@/services/firebase"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 
 export const initializeNewUser = async (currentUser: any) => {
-  const usersRef = doc(database, "users", currentUser.uid)
-  setDoc(usersRef, { saved_books: [] })
+  try {
+    if (!currentUser || !currentUser.uid) {
+      throw new Error("Invalid user object or missing UID.")
+    }
+
+    const usersRef = doc(database, "users", currentUser.uid)
+    await setDoc(usersRef, { saved_books: [] })
+  } catch (error) {
+    console.error("Error while initializing new user:", error)
+    throw error
+  }
 }
 
 export const getUserData = async (currentUser: any) => {
-  const docRef = doc(database, "users", currentUser.uid)
-  const docSnap = await getDoc(docRef)
+  try {
+    if (!currentUser || !currentUser.uid) {
+      throw new Error("Invalid user object or missing UID.")
+    }
 
-  if (docSnap.exists()) {
-    return docSnap.data()
-  } else {
-    console.log("No such document!")
-    return null
+    const docRef = doc(database, "users", currentUser.uid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      return docSnap.data()
+    } else {
+      console.log("No such document!")
+      return null
+    }
+  } catch (error) {
+    console.error("Error while getting user data:", error)
+    throw error
   }
 }
 
@@ -23,49 +41,82 @@ export const saveBookToMyList = async (
   newBookData: any,
   selectedCategory: any,
 ) => {
-  const currentList = await getUserData(currentUser)
-  const newList = [...currentList?.saved_books]
+  try {
+    if (!currentUser || !currentUser.uid) {
+      throw new Error("Invalid user object or missing UID.")
+    }
 
-  if (!newList.find((book) => book.primary_isbn10 === newBookData.primary_isbn10)) {
-    newBookData.originCategory = selectedCategory.display_name
-    newBookData.saved = true
-    newList.push(newBookData)
+    const currentList = await getUserData(currentUser)
+    const newList = [...currentList?.saved_books]
 
-    const usersRef = doc(database, "users", currentUser.uid)
-    setDoc(usersRef, { saved_books: newList })
-    return newBookData
-  } else return null
+    if (
+      !newList.find((book) => book.primary_isbn10 === newBookData.primary_isbn10)
+    ) {
+      newBookData.originCategory = selectedCategory.display_name
+      newBookData.saved = true
+      newList.push(newBookData)
+
+      const usersRef = doc(database, "users", currentUser.uid)
+      await setDoc(usersRef, { saved_books: newList })
+      return newBookData
+    } else {
+      return null
+    }
+  } catch (error) {
+    console.error("Error while saving book to user's list:", error)
+    throw error
+  }
 }
 
 export const removeBookFromMyList = async (currentUser: any, bookToRemove: any) => {
-  const currentList = await getUserData(currentUser)
-  const newList = [...currentList?.saved_books]
+  try {
+    if (!currentUser || !currentUser.uid) {
+      throw new Error("Invalid user object or missing UID.")
+    }
 
-  const idxToRemove = newList.findIndex(
-    (book) => book.primary_isbn10 === bookToRemove.primary_isbn10,
-  )
+    const currentList = await getUserData(currentUser)
+    const newList = [...currentList?.saved_books]
 
-  if (idxToRemove !== -1) {
-    newList.splice(idxToRemove, 1)
+    const idxToRemove = newList.findIndex(
+      (book) => book.primary_isbn10 === bookToRemove.primary_isbn10,
+    )
 
-    const usersRef = doc(database, "users", currentUser.uid)
-    setDoc(usersRef, { saved_books: newList })
-    return true
-  } else {
-    return false
+    if (idxToRemove !== -1) {
+      newList.splice(idxToRemove, 1)
+
+      const usersRef = doc(database, "users", currentUser.uid)
+      await setDoc(usersRef, { saved_books: newList })
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error("Error while removing book from user's list:", error)
+    throw error
   }
 }
 
 export const getBookSavedStatus = async (currentUser: any, newBookData: any) => {
-  const userData = await getUserData(currentUser)
-  const savedBooks = [...userData?.saved_books]
+  try {
+    if (!currentUser || !currentUser.uid) {
+      throw new Error("Invalid user object or missing UID.")
+    }
 
-  const book = savedBooks?.find(
-    (book: { primary_isbn10: any }) =>
-      book.primary_isbn10 === newBookData.primary_isbn10,
-  )
+    const userData = await getUserData(currentUser)
+    const savedBooks = [...userData?.saved_books]
 
-  if (book) {
-    return book
-  } else return null
+    const book = savedBooks?.find(
+      (book: { primary_isbn10: any }) =>
+        book.primary_isbn10 === newBookData.primary_isbn10,
+    )
+
+    if (book) {
+      return book
+    } else {
+      return null
+    }
+  } catch (error) {
+    console.error("Error while getting book saved status:", error)
+    throw error
+  }
 }

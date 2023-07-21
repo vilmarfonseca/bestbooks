@@ -33,16 +33,20 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
   const location = useLocation()
   const currentPath = location.pathname
 
-  // Handle initial data request
-  useEffect(() => {
-    async function getHomePageData() {
+  const getHomePageData = useCallback(async () => {
+    try {
       const listsData = await fetchAllLists()
 
       if (listsData?.status === "OK") {
         setFullListsData({ ...listsData, ...{ requestDate: new Date() } })
       }
+    } catch (error) {
+      console.error("Error while fetching home page data:", error)
     }
+  }, [setFullListsData])
 
+  // Handle initial data request
+  useEffect(() => {
     if (
       !fullListsData ||
       hoursDiff(new Date(fullListsData?.requestDate), new Date()) >
@@ -50,9 +54,9 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     ) {
       getHomePageData()
     }
-  })
+  }, [fullListsData, getHomePageData])
 
-  const resetInitialNavigationState = useCallback(() => {
+  useEffect(() => {
     if (currentPath === "/") {
       setSelectedBook(null)
       setSelectedCategory(null)
@@ -60,19 +64,11 @@ export const GlobalStateProvider: React.FC<GlobalStateProviderProps> = ({
     }
   }, [currentPath, setBackPath, setSelectedBook, setSelectedCategory])
 
-  const redirectWhenDataIsNotAvailable = useCallback(() => {
+  useEffect(() => {
     if (currentPath !== "/" && !fullListsData) {
       navigate("/", { replace: true })
     }
   }, [currentPath, fullListsData, navigate])
-
-  useEffect(() => {
-    resetInitialNavigationState()
-  }, [resetInitialNavigationState])
-
-  useEffect(() => {
-    redirectWhenDataIsNotAvailable()
-  }, [redirectWhenDataIsNotAvailable])
 
   const value = {
     backPath,

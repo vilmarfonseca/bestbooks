@@ -38,7 +38,7 @@ const MyBooksPage: React.FC<PageProps> = ({ title }) => {
   return (
     <Layout>
       <div className="flex px-2 lg:py-5 gap-10 w-full">
-        <div className="flex flex-col gap-16">
+        <div className="flex flex-col gap-16 w-full">
           <Fade in timeout={{ enter: 500 }}>
             <div>
               {!loading ? (
